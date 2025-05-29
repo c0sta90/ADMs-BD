@@ -6,6 +6,7 @@ ARQUIVO_ORIGINAL="/home/costa/Documents/Trabalhos/ADMs-BD/ficheiro.txt"
 if [ ! -f "$ARQUIVO_ORIGINAL" ]; then
     clear
     echo "O ficheiro original não existe em: $ARQUIVO_ORIGINAL"
+    echo "Por favor, verifique o caminho do ficheiro."
     exit 1
 fi
 
@@ -35,3 +36,12 @@ cp "$ARQUIVO_ORIGINAL" "$DIRETORIO_BACKUP/$NOME_BACKUP"
 
 clear
 echo "Backup criado em: $DIRETORIO_BACKUP/$NOME_BACKUP"
+
+# Sistema de logs
+LOG_FILE="/home/costa/Documents/Trabalhos/ADMs-BD/backup.log"
+# Verifica se o ficheiro de log existe, se não, cria-o
+if [ ! -f "$LOG_FILE" ]; then
+    touch "$LOG_FILE"
+fi
+# Registra a ação no ficheiro de log
+echo "$(date +"%Y-%m-%d %H:%M:%S") - Backup criado: $DIRETORIO_BACKUP/$NOME_BACKUP" >> "$LOG_FILE"
